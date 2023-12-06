@@ -1,70 +1,20 @@
-const express = require('express') 
+const express = require("express")
+const app = express();
+const mongoose = require("mongoose")
+const port = 8080;
 
-// Crear una instancia
-const app = express()
+const username = "davidPK8"
+const password = "davidPK8"
 
-// Iniciar el servidor en el puerto 3000
-app.listen(3000)
-console.log("Web Server Ejecutandose en el puerto 3000")
+const conn_str = `mongodb+srv://${username}:${(password)}@clusterweb.klfzh9s.mongodb.net/?retryWrites=true&w=majority`;
 
-app.get('/inicio',(req,res)=>{
-    res.send("Pagina de Inicio - Grupo 1")
-})
-
-app.get('/integrantes',(req,res)=>{
-    res.json([
-        {
-            "numero": "1",
-            "nombre":"Eduardo",
-            "apellido":"Almachi",
-        },
-        {
-            "numero": "2",
-            "nombre":"Bryan",
-            "apellido":"Delgado",
-        },
-        {
-            "numero": "3",
-            "nombre":"Brittany",
-            "apellido":"Espinel",
-        },
-        {
-            "numero": "4",
-            "nombre":"Mateo",
-            "apellido":"Miño",
-        },
-        {
-            "numero": "5",
-            "nombre":"Melany",
-            "apellido":"Sangucho",
-        },
-        {
-            "numero": "6",
-            "nombre":"David",
-            "apellido":"Vallejo",
-        },
-        {
-            "numero": "7",
-            "nombre":"Erick",
-            "apellido":"Villaroel",
-        },
-        {
-            "numero": "8",
-            "nombre":"Danny",
-            "apellido":"Yanacallo",
-        }
-    ])
-})
-
-app.get('/productos',(req,res)=>{
-    res.send(`
-            <h1>Catálogo de productos</h1>
-                <p>Bienvenidos</p>
-                <ul>
-                <li>Mouse</li>
-                <li>Monitor</li>
-                <li>Teclado</li>
-                <li>MousepPad</li>
-                </ul>
-    `)
-})
+mongoose.connect(conn_str)
+  .then(() => {
+    console.log("MongoDB está conectado exitosamente");
+    app.listen(port, () => {
+      console.log("Iniciando el servidor en el puerto", port);
+    });
+  })
+  .catch((err) => {
+    console.error("Error en la conexión a MongoDB:", err);
+  });
